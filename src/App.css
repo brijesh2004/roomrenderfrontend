@@ -24,8 +24,15 @@
   color: white;
 }
 
+
+
 .App-link {
   color: #61dafb;
+}
+
+.room_details{
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +42,141 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* city page design */
+.citydiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.citydiv span{
+  margin: 30px;
+  min-width: 100px;
+  display: block;
+  text-align: center;
+  border: 1px solid black;
+
+}
+
+
+/********************************* home page design ****************************************/
+
+.searchform{
+text-align: center;
+}
+
+.searchform .searchinp{
+ width: 500px;
+ height: 50px;
+ font-size: 20px;
+}
+@media (max-width:600px){
+  .searchform .searchinp{
+    width:300px;
+   }
+}
+.searchbtn{
+  width: 150px;
+  height: 50px;
+  margin: 20px;
+  font-size: 20px;
+  background-color: rgb(0, 255, 0);
+  border-radius: 5px;
+  transition: 1s ease-in-out;
+}
+.searchbtn:hover{
+  background: none;
+  border-radius: 50px;
+}
+.user_search_list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.search_result_box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  margin: 20px;
+  padding: 10px;
+  margin-top: 20px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.search_details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.status_details{
+  display: block;
+  margin: auto;
+  text-align: center;
+  width: 70px;
+  border-radius: 20px;
+ background-color: rgb(0, 255, 0);
+}
+
+
+/* ******************************************post room page design **************************************/
+.postroomdetails{
+  text-align: center;
+  /* border: 1px solid black; */
+ box-shadow: 0 0 20px;
+}
+.loginfield{
+  text-align: center;
+  overflow: hidden;
+  width: 60vw;
+  box-shadow: 0px 0px 20px ;
+  box-sizing: content-box;
+  margin: auto;
+}
+
+.postforminp{
+  width: 300px;
+  margin: 20px;
+  height: 40px;
+  overflow: hidden;
+  color: blue;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.post_room_page_head{
+  width: 70vw;
+  display: block;
+  margin: auto;
+  /* border: 1px solid red; */
+}
+
+@media (max-width:600px){
+  .post_room_page_head{
+    width: 90vw;
+  }
+}
+
+
+
+/* **************************************profile page ***********************************/
+
+.profile_page_home{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.profile_page_home img{
+  width: 300px;
+  height: 300px;
+}
+
+.profile_details{
+  margin: 40px;
+  align-items: center;
+  margin-top: 80px;
 }
