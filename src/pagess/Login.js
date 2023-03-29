@@ -40,7 +40,7 @@ const Login = () => {
         value={email}
         onChange={(e)=> setEmail(e.target.value)}
        /><br />
-       <input type="email" placeholder='Enter Your Password' className='postforminp' autoComplete='off'
+       <input type="password" placeholder='Enter Your Password' className='postforminp' autoComplete='off'
         value={password}
         onChange={(e)=> setpassword(e.target.value)}
        /><br />
