@@ -18,7 +18,7 @@ const Postroom = () => {
       const data = await res.json();
       // console.log(data);
       setUserData(data);
-  
+     console.log(userData);
       
       if(!res.status === 200){
         const error = new Error(res.error);
