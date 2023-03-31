@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom';
 const Logout = () => {
   const navigate = useNavigate();
   useEffect(()=>{
-    fetch('/logout',{
+    fetch('https://roomrenderbackend.onrender.com/logout',{
         method:'GET',
         headers:{
             Accept:"appication/json",

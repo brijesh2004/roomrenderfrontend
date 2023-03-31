@@ -12,7 +12,7 @@ const [userroom , setUserroom]=useState([]);
 const callprofilePage = async () =>{
   try{
    
-    const res = await fetch('/profile' , {
+    const res = await fetch('https://roomrenderbackend.onrender.com/profile' , {
       method:'GET',
       headers:{
         Accept:"application/json",
@@ -42,7 +42,7 @@ const callprofilePage = async () =>{
 const calltheroom = async () =>{
   try{
     setLoading(true);
-    const getroom = await fetch('/api' , {
+    const getroom = await fetch('https://roomrenderbackend.onrender.com/api' , {
       method:'GET',
       headers:{
         "Content-Type":"application/json",

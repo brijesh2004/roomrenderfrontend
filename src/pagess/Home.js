@@ -9,7 +9,7 @@ const Home = () => {
   const SearchtheRoomPage = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api", {
+      const res = await fetch("https://roomrenderbackend.onrender.com/api", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

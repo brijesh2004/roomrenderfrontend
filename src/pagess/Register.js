@@ -17,7 +17,7 @@ const Register = () => {
     e.preventDefault();
     const {name ,email , password , cpassword} = user;
 
-    const res = await fetch('/register',{
+    const res = await fetch('https://roomrenderbackend.onrender.com/register',{
       method:'POST',
       headers:{
         "Content-Type":"application/json"

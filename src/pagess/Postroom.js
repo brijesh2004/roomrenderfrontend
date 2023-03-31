@@ -6,7 +6,7 @@ const Postroom = () => {
 
   const callprofilePage = async () =>{
     try{
-      const res = await fetch('/profile' , {
+      const res = await fetch('https://roomrenderbackend.onrender.com/profile' , {
         method:'GET',
         headers:{
           Accept:"application/json",
@@ -59,7 +59,7 @@ const PostData = async (e) => {
   e.preventDefault();
   const {Name , email , City ,Pincode, Type , Place , HouseNumber , MobileNumber , RoomType } = user;
 
-  const res = await fetch('/postroom',{
+  const res = await fetch('https://roomrenderbackend.onrender.com/postroom',{
     method:'POST',
     headers:{
       "Content-Type":"application/json"
