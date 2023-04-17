@@ -12,6 +12,7 @@ const Home = () => {
       const res = await fetch("https://roomrenderbackend.onrender.com/api", {
         method: "GET",
         headers: {
+          'Origin':'https://roomrenderbackend.onrender.com',
           "Content-Type": "application/json",
         },
       });

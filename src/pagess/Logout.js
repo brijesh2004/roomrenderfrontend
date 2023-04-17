@@ -7,6 +7,7 @@ const Logout = () => {
     fetch('https://roomrenderbackend.onrender.com/logout',{
         method:'GET',
         headers:{
+          'Origin':'https://roomrenderbackend.onrender.com',
             Accept:"appication/json",
             "Content-Type":"application/json"
         },

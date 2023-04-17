@@ -10,7 +10,9 @@ const Login = () => {
     e.preventDefault();
     const res = await fetch('https://roomrenderbackend.onrender.com/signin' , {
       method:'POST',
+      credentials:'include',
       headers:{
+        'Origin':'https://roomrenderbackend.onrender.com',
         "Content-Type":"application/json"
       },
       body:JSON.stringify({

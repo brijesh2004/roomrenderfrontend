@@ -9,6 +9,7 @@ const Postroom = () => {
       const res = await fetch('https://roomrenderbackend.onrender.com/profile' , {
         method:'GET',
         headers:{
+          'Origin':'https://roomrenderbackend.onrender.com',
           Accept:"application/json",
           "Content-Type":"application/json",
         },
@@ -62,6 +63,7 @@ const PostData = async (e) => {
   const res = await fetch('https://roomrenderbackend.onrender.com/postroom',{
     method:'POST',
     headers:{
+      'Origin':'https://roomrenderbackend.onrender.com',
       "Content-Type":"application/json"
     },
     body: JSON.stringify({

@@ -20,6 +20,7 @@ const Register = () => {
     const res = await fetch('https://roomrenderbackend.onrender.com/register',{
       method:'POST',
       headers:{
+        'Origin':'https://roomrenderbackend.onrender.com',
         "Content-Type":"application/json"
       },
       body: JSON.stringify({

@@ -15,6 +15,7 @@ const callprofilePage = async () =>{
     const res = await fetch('https://roomrenderbackend.onrender.com/profile' , {
       method:'GET',
       headers:{
+        'Origin':'https://roomrenderbackend.onrender.com',
         Accept:"application/json",
         "Content-Type":"application/json",
       },
@@ -45,6 +46,7 @@ const calltheroom = async () =>{
     const getroom = await fetch('https://roomrenderbackend.onrender.com/api' , {
       method:'GET',
       headers:{
+        'Origin':'https://roomrenderbackend.onrender.com',
         "Content-Type":"application/json",
       },
     });
