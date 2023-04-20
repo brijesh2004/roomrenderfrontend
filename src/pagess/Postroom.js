@@ -19,7 +19,7 @@ const Postroom = () => {
       const data = await res.json();
       // console.log(data);
       setUserData(data);
-     console.log(userData);
+    //  console.log(userData);
       
       if(!res.status === 200){
         const error = new Error(res.error);
@@ -51,7 +51,6 @@ const Postroom = () => {
 
   let name  , value;
   const handleInputs = (e) => {
-    // console.log(e);
     name = e.target.name;
     value = e.target.value;
     setUser({...user , [name]:value});
