@@ -10,6 +10,7 @@ import '../App.css'
 import Postroom from './Postroom';
 import Register from './Register';
 import Logout from './Logout';
+import ChangePassword from './ChangePassword';
 
 
 const Layout = () => {
@@ -26,6 +27,7 @@ const Layout = () => {
           <Route exact path='/Register' element={<Register/>}></Route>
           <Route exact path='/Postroom' element={<Postroom/>}></Route>
           <Route exact path='/logout' element={<Logout/>}></Route>
+          <Route exact path='/ChangePassword' element={ <ChangePassword/> }></Route>
           <Route exact path='*' element={<Errorpage/>}></Route>
    </Routes>
    </Router>

@@ -3,6 +3,7 @@ import { useNavigate} from 'react-router-dom';
 
 const Logout = () => {
   const navigate = useNavigate();
+  // const [varified , setVarified] = useState(false);
   useEffect(()=>{
     fetch('https://roomrenderbackend.onrender.com/logout',{
         method:'GET',
@@ -14,6 +15,7 @@ const Logout = () => {
         credentials:"include"
     }).then((res)=>{
    navigate('/login');
+   window.location.reload(false);
    if(res.status!==200){
       const error = new Error(res.error);
       throw error;

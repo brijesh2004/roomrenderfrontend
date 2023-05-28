@@ -43,7 +43,7 @@ const Register = () => {
   }
   useEffect(()=>{
     document.title=`user Sign Up`;
-  });
+  } ,[]);
   return (
     <>
       <br /><br />

@@ -51,14 +51,22 @@
   justify-content: center;
 }
 
-.citydiv span{
+/* .citydiv span{
   margin: 30px;
   min-width: 100px;
   display: block;
   text-align: center;
   border: 1px solid black;
+} */
 
+.spanelement{
+border: 2px solid black;
+margin: 30px;
+font-size: 25px;
+padding: 10px;
+text-transform: capitalize;
 }
+
 
 
 /********************************* home page design ****************************************/
@@ -179,4 +187,43 @@ text-align: center;
   margin: 40px;
   align-items: center;
   margin-top: 80px;
+}
+
+
+
+/* change the password component style */
+.changepassword{
+  margin-top: 100px;
+}
+.changepasswordform{
+  width: 70vw;
+  display: block;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 0 20px;
+  border-radius: 20px;
+  
+}
+
+.changepasswordform input{
+  width: 400px;
+  border-top: none;
+  border-bottom: none;
+  height: 40px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+
+.deletebtn{
+  width: 41px;
+  background: red;
+  border: none;
+  display: block;
+  margin: auto;
+  height: 48px;
+  font-size: 35px;
+  border-radius: 18px;
+  box-shadow: 5px 5px 5px;
 }

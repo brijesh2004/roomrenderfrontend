@@ -36,7 +36,7 @@ const Home = () => {
 
   useEffect(()=>{
     document.title=`Search the room`;
-  })
+  },[])
 
   const handleInputs = (e) => {
     let value = e.target.value;
@@ -53,18 +53,22 @@ const Home = () => {
     setUserData(filteredData);
   };
 
+  // useEffect(()=>{
+  //   handleSearch();
+  // },[userData]);
+
   return (
     <>
       <br />
       <br />
-      <form className="searchform" onSubmit={handleSearch}>
+      <form className="searchform">
         <input
           type="text"
           placeholder="Search City"
           className="searchinp"
           onChange={handleInputs}
         />
-        <input type="submit" value="Search" className="searchbtn" />
+        <input type="submit" value="Search" className="searchbtn" onClick={handleSearch} />
       </form>
       <div className="user_search_list">
       {Loading&&<Spinner/>}

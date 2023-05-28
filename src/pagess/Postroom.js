@@ -34,7 +34,7 @@ const Postroom = () => {
   useEffect(()=>{
     document.title=`post room details`;
     callprofilePage();
-  })
+  },[])
 
 
   const [user ,setUser] = useState({
