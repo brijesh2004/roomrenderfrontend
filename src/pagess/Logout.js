@@ -14,7 +14,7 @@ const Logout = () => {
         },
         credentials:"include"
     }).then((res)=>{
-   navigate('/login');
+   navigate('/Login');
    window.location.reload(false);
    if(res.status!==200){
       const error = new Error(res.error);
