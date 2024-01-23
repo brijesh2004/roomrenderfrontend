@@ -5,11 +5,12 @@ import { useNavigate} from 'react-router-dom';
 const Logout = () => {
   const navigate = useNavigate();
 
-  
+
 useEffect(()=>{
    localStorage.clear();
-   window.location.reload(false)
+  
    navigate("/")
+   window.location.reload(false)
 })
   return (
     <div>
