@@ -227,3 +227,14 @@ text-align: center;
   border-radius: 18px;
   box-shadow: 5px 5px 5px;
 }
+
+
+select{
+  min-width: 300px;
+  min-height: 45px;
+  text-align: center;
+  border-radius: 10px;
+}
+.country_city_state{
+  text-align: center;
+}

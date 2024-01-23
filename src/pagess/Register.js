@@ -1,6 +1,7 @@
 import React ,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
+
 const Register = () => {
   const navigate = useNavigate();
   const [user , setUser] = useState({
@@ -17,10 +18,10 @@ const Register = () => {
     e.preventDefault();
     const {name ,email , password , cpassword} = user;
 
-    const res = await fetch('https://roomrenderbackend.onrender.com/register',{
+    const res = await fetch(`${process.env.REACT_APP_PATH}/register`,{
       method:'POST',
       headers:{
-        'Origin':'https://roomrenderbackend.onrender.com',
+        'Origin':`${process.env.REACT_APP_PATH}`,
         "Content-Type":"application/json"
       },
       body: JSON.stringify({
@@ -32,17 +33,19 @@ const Register = () => {
 
     if(data.status === 422 || !data){
       window.alert("Invalid Registration");
-      console.log("Invalid Registration");
     }
     else{
       window.alert(" Registration Successully");
-      console.log(" Registration Successully");
 
       navigate("/login");
     }
   }
   useEffect(()=>{
     document.title=`user Sign Up`;
+    const email1 = localStorage.getItem('email');
+    if(email1){
+      navigate("/");
+    }
   } ,[]);
   return (
     <>

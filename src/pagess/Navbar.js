@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserVerify } from './Login';
+
 
 const Navbar = () => {
   const [UserVerified, setUserVerified] = useState(false);
   const [userData, setUserData] = useState({});
+  const [login , setLogin] = useState(false);
 
   const callProfilePage = async () => {
     try {
-      const res = await fetch('https://roomrenderbackend.onrender.com/profile', {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/profile`, {
         method: 'GET',
         headers: {
-          'Origin': 'https://roomrenderbackend.onrender.com',
+          'Origin': `${process.env.REACT_APP_PATH}`,
           Accept: "application/json",
           "Content-Type": "application/json",
         },
@@ -31,8 +32,7 @@ const Navbar = () => {
     }
   }
 
-  const RenderNavbar = () => {
-    if (UserVerified) {
+  const LoginNav= () => {
       return (
         <nav className="navbar navbar-expand-lg bg-secondary">
           <div className="container-fluid">
@@ -62,7 +62,8 @@ const Navbar = () => {
           </div>
         </nav>
       );
-    } else {
+      }
+      const LogoutNav = () =>{
       return (
         <nav className="navbar navbar-expand-lg bg-secondary">
           <div className="container-fluid">
@@ -90,15 +91,21 @@ const Navbar = () => {
         </nav>
       );
     }
-  }
 
+ let email = "";
   useEffect(() => {
-    callProfilePage();
-  }, [UserVerified]);
+    email =  localStorage.getItem('email')
+    if(email)
+     setLogin(true)
+    else
+     setLogin(false)
+  },[]);
 
   return (
     <>
-      <RenderNavbar />
+      {
+        login?<LoginNav/>:<LogoutNav/>
+      }
     </>
   );
 };

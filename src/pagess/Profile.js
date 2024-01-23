@@ -2,30 +2,38 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Spinner from './Loading';
 
-
-
 const Profile = () => {
   const navigate = useNavigate();
+
   const [userData, setUserData] = useState({});
+
+  const [userId , setUserId] = useState("");
+
   const [Loading, setLoading] = useState(false);
+
   const [userroom, setUserroom] = useState([]);
+
   const callprofilePage = async () => {
+
     try {
 
-      const res = await fetch('https://roomrenderbackend.onrender.com/profile', {
+      setLoading(true)
+
+      const res = await fetch(`${process.env.REACT_APP_PATH}/profile`, {
         method: 'GET',
+        credentials: "include",
         headers: {
-          'Origin': 'https://roomrenderbackend.onrender.com',
+          'Origin': `${process.env.REACT_APP_PATH}`,
           Accept: "application/json",
           "Content-Type": "application/json",
-        },
-        credentials: "include"
+        }
       });
 
       const data = await res.json();
-      // console.log(data);
-
+      setLoading(false)
+      setUserroom(data.rooms);
       setUserData(data);
+      setUserId(data._id);
       // getting the user uploaded room 
 
       if (!res.status === 200) {
@@ -35,43 +43,24 @@ const Profile = () => {
 
     }
     catch (err) {
-      console.log(err);
       navigate('/login');
     }
   }
 
-  const calltheroom = async () => {
-    try {
-      setLoading(true);
-      const getroom = await fetch('https://roomrenderbackend.onrender.com/api', {
-        method: 'GET',
-        headers: {
-          'Origin': 'https://roomrenderbackend.onrender.com',
-          "Content-Type": "application/json",
-        },
-      });
-      const getroomdata = await getroom.json();
-      if (!getroom.status === 200) {
-        const error = new Error(getroomdata.error);
-        throw error;
-      }
-      setLoading(false);
-      setUserroom(getroomdata);
-    }
-    catch (err) {
-      console.log(err);
-    }
-
-  }
+  
 
 
   useEffect(() => {
     document.title = `User Profile`;
-    callprofilePage();
-  });
-  useEffect(() => {
-    calltheroom();
-  }, []);
+    const email1= localStorage.getItem('email');
+    if(email1)
+     callprofilePage();
+    else
+     navigate("/login")
+  },[]);
+  // useEffect(() => {
+  //   calltheroom();
+  // }, []);
   return (
     <>
       <div>
@@ -82,7 +71,6 @@ const Profile = () => {
           </div>
           <div className="profile_details">
             <h2>Name - {userData.name}</h2>
-            Ranking 5/10
             <p>email - {userData.email}</p>
           </div>
         </div>
@@ -93,49 +81,44 @@ const Profile = () => {
             {Loading && <Spinner />}
             <div className="search_details">
               {!Loading && userroom.map((document) => (
-                userData.email === document.email && (
                   <div key={document._id} className="search_result_box">
                     <p className="status_details">open</p>
-                    <p><span className="room_details">Name</span> - {document.Name}</p>
+                    <p><span className="room_details">Name</span> - {document.roomrenterName}</p>
                     {/* <p><span className="room_details">email</span> - {document.email}</p> */}
-                    <p><span className="room_details">City </span> - {document.City}</p>
-                    <p><span className="room_details">Pincode</span>  - {document.Pincode ? document.Pincode : "not given"}</p>
-                    <p><span className="room_details">Type</span>  - {document.Type}</p>
-                    <p><span className="room_details">Place</span>  - {document.Place}</p>
-                    <p><span className="room_details">Price</span>  - {document.HouseNumber ? document.HouseNumber : "not given"}</p>
-                    <p><span className="room_details">MoblieNumber</span>  - {document.MobileNumber}</p>
-                    <p><span className="room_details">RoomType</span>  - {document.RoomType}</p>
+                    <p><span className="room_details">Country </span> - {document.country}</p>
+                    <p><span className="room_details">State</span>  - {document.state}</p>
+                    <p><span className="room_details">City</span>  - {document.city}</p>
+                    <p><span className="room_details">Mobile</span>  - {document.mobile}</p>
+                    <p><span className="room_details">Area</span>  - {document.place}</p>
+                    <p><span className="room_details">Price</span>  - {document.price}</p>
+                    {/* <p><span className="room_details">Location</span>  - {document.location}</p> */}
+                    <p><span className="room_details">Uploaded Date</span>  - {document.date.slice(0,10).split('-').reverse().join('-')}</p>
                     <a
-                      href={`https://www.google.co.in/maps/@26.6550204,83.2456535,16z?q=${document.Place
-                        }`}
+                      href={`${document.location}`}
                     >
                       Go To Map
                     </a> <br />
-
+                   
                     <button className="deletebtn" onClick={async () => {
-                      console.log(document._id);
-                      const res = await fetch(`https://roomrenderbackend.onrender.com/api/myModel/${document._id}`, {
+                      const res = await fetch(`${process.env.REACT_APP_PATH}/delete/myModel/${document._id}?userId=${userId}`, {
                         method: 'DELETE',
                         credentials: 'include',
                         headers: {
-                          'Origin': 'https://roomrenderbackend.onrender.com',
+                          'Origin': `${process.env.REACT_APP_PATH}`,
                           "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                        })
+                        }
                       })
                       const data =await res.json();
                       if(data.status===404 || data.status===500){
                         alert("Error");
                       }
-                      // console.log(data);
+                    
                       alert("Room data Delete Successfully");
                       navigate('/');
 
 
                     }}><i className="fa fa-trash"></i></button>
                   </div>
-                )
               ))}
             </div>
           </div>

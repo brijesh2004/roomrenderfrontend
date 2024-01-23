@@ -18,11 +18,11 @@ const ChangePassword = () => {
     const ChangePass = async (e) => {
      const {email , newpassword , cnewpassword}=data;
       e.preventDefault();
-      const res = await fetch('https://roomrenderbackend.onrender.com/changePass' , {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/changePass` , {
         method:'POST',
         credentials:'include',
         headers:{
-          'Origin':'https://roomrenderbackend.onrender.com',
+          'Origin':`${process.env.REACT_APP_PATH}`,
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
@@ -30,7 +30,7 @@ const ChangePassword = () => {
         })
       })
       const resdata= await res.json();
-      console.log(resdata);
+      
       if(newpassword!==cnewpassword){
         window.alert("Password are not matching");
       }
@@ -39,7 +39,7 @@ const ChangePassword = () => {
       }
       else{
         window.alert("Password change Successfully");
-        console.log("Password change successfully");
+        
         nevigate('/login');
       }
     }
