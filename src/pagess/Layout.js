@@ -11,7 +11,7 @@ import Postroom from './Postroom';
 import Register from './Register';
 import Logout from './Logout';
 import ChangePassword from './ChangePassword';
-
+import Userprofile from './Userprofile';
 
 const Layout = () => {
   return (
@@ -27,6 +27,7 @@ const Layout = () => {
           <Route exact path='/Register' element={<Register/>}></Route>
           <Route exact path='/Postroom' element={<Postroom/>}></Route>
           <Route exact path='/logout' element={<Logout/>}></Route>
+          <Route exact path='/user/:id' element={<Userprofile/>}></Route>
           <Route exact path='/ChangePassword' element={ <ChangePassword/> }></Route>
           <Route exact path='*' element={<Errorpage/>}></Route>
    </Routes>

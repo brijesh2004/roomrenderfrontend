@@ -1,3 +1,7 @@
+body{
+  background-color: #282c34;
+  color: white;
+}
 .App {
   text-align: center;
 }
@@ -71,12 +75,10 @@ text-transform: capitalize;
 
 /********************************* home page design ****************************************/
 
-.searchform{
-text-align: center;
-}
+
 
 .searchform .searchinp{
- width: 500px;
+ width: 300px;
  height: 50px;
  font-size: 20px;
 }
@@ -90,18 +92,20 @@ text-align: center;
   height: 50px;
   margin: 20px;
   font-size: 20px;
-  background-color: rgb(0, 255, 0);
-  border-radius: 5px;
+  background-color: rgb(7, 116, 163);
+  border-radius: 15px;
   transition: 1s ease-in-out;
 }
 .searchbtn:hover{
-  background: none;
+  background: rgb(44, 48, 38);
   border-radius: 50px;
 }
 .user_search_list{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 520px;
+  overflow-y: auto;
 }
 .search_result_box {
   border: 1px solid #ccc;
@@ -148,7 +152,7 @@ text-align: center;
   margin: 20px;
   height: 40px;
   overflow: hidden;
-  color: blue;
+  color: white;
   border-top: none;
   border-right: none;
   border-left: none;
@@ -234,7 +238,42 @@ select{
   min-height: 45px;
   text-align: center;
   border-radius: 10px;
+  background: #191616;
+  color: white;
 }
 .country_city_state{
-  text-align: center;
+  text-align: left;
+  margin-left: 20px;
+  
+}
+
+.hover-on-route:hover{
+  background: green;
+}
+
+.list_home_page{
+  display: flex;
+}
+
+@media (max-width:800px){
+  .list_home_page{
+    display: flex;
+    flex-direction: column;
+  }
+  .country_city_state{
+    text-align: center;
+    position: sticky;
+  }
+}
+input{
+  background: #000;
+  color: white;
+}
+
+.visit_profile_btn{
+  width: 120px;
+  height: 35px;
+  color:white;
+  border-radius: 15px;
+  background: #003091;
 }

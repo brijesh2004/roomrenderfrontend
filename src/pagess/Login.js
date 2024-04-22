@@ -10,10 +10,12 @@ const Login = () => {
   const [email , setEmail] = useState('');
   const [password , setpassword] = useState('');
   const [userVarified , setUserVarified] = useState(false);
+  const [Login , setLogin] = useState("Login");
 
 
   const loginUser = async (e) => {
     e.preventDefault();
+    setLogin("Login...")
     const res = await fetch(`${process.env.REACT_APP_PATH}/signin` , {
       method:'POST',
       credentials:'include',
@@ -26,7 +28,7 @@ const Login = () => {
       })
     })
     const data = await res.json();
-
+    setLogin("Login")
     if(res.status === 400 || !data) {
       window.alert("Invalid Login Details");
     }
@@ -39,9 +41,6 @@ const Login = () => {
       window.location.reload(false);
     }
   }
-  // function refreshPage() {
-  //   window.location.reload(false);
-  // }
   useEffect(()=>{
     document.title=`user Login`;
     const email1 = localStorage.getItem('email')
@@ -63,12 +62,9 @@ const Login = () => {
         value={password}
         onChange={(e)=> setpassword(e.target.value)}
        /><br />
-       <input type="submit" value="Login" className='searchbtn' onClick={loginUser}/> <br />
+       <input type="submit" value={Login} className='searchbtn' onClick={loginUser}/> <br />
        <a href="/ChangePassword">Forget Password</a>
      </form>
-     {/* {
-      refreshPage()
-     } */}
      </UserVarify.Provider>
     </>
   )

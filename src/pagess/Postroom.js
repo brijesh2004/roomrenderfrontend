@@ -8,6 +8,7 @@ const Postroom = () => {
   const Allcountry = ICountry.getAllCountries();
   const navigate = useNavigate();
   const [userData , setUserData] = useState({});
+  const [submit , setSubmit] = useState("Submit");
   const [email , setEmail]  = useState("");
 
   const [countryID , setCountryID] = useState(-1);
@@ -82,7 +83,7 @@ const PostData = async (e) => {
   e.preventDefault();
   const {roomrenterName , mobile , place , roomtype , location , price } = user;
   
- 
+  setSubmit("Submiting...");
   const res = await fetch(`${process.env.REACT_APP_PATH}/roomupload`,{
     method:'POST',
     headers:{
@@ -95,7 +96,7 @@ const PostData = async (e) => {
   })
 
   // const data = await res.json();
-  
+  setSubmit("Submiting");
    if(res.status===201){
     window.alert("Post room Successfully");
 
@@ -103,6 +104,7 @@ const PostData = async (e) => {
    }
    else{
     window.alert("Invalid Data");
+    setSubmit("Submiting");
    }
 }
 
@@ -258,11 +260,8 @@ useEffect(() => {
          required="required"
       /> <br />
       
-      {/* <span>Room Details*</span> <input name='RoomType' type="TEXT" placeholder='eg - 2 Room , 1 Bath Room , 1 Kichen + Hall all Are Seperate ' className='postforminp'
-         value={user.RoomType}
-         onChange={handleInputs}
-      /> <br /> */}
-      <input type="submit" value="Submit" className='searchbtn' onClick={PostData}/>
+
+      <input type="submit" value={submit} className='searchbtn' onClick={PostData}/>
       </form>
       <br /><br />
     </div>

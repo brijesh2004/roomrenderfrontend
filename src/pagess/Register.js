@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const navigate = useNavigate();
+  const [Register , setRegister] = useState("Register");
+
   const [user , setUser] = useState({
     name:"",email:"",password:"",cpassword:""
   });
@@ -17,7 +19,7 @@ const Register = () => {
   const PostData = async (e) => {
     e.preventDefault();
     const {name ,email , password , cpassword} = user;
-
+      setRegister("Register...");
     const res = await fetch(`${process.env.REACT_APP_PATH}/register`,{
       method:'POST',
       headers:{
@@ -31,6 +33,7 @@ const Register = () => {
 
     const data = await res.json();
 
+    setRegister("Register");
     if(data.status === 422 || !data){
       window.alert("Invalid Registration");
     }
@@ -68,7 +71,7 @@ const Register = () => {
           value={user.cpassword}
           onChange={handleInputs}
       /> <br />
-      <input type="submit" value="SignUp" className='searchbtn' onClick={PostData}/>
+      <input type="submit" value={Register} className='searchbtn' onClick={PostData}/>
          </form>
     </>
   )

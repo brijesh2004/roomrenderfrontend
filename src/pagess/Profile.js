@@ -58,9 +58,7 @@ const Profile = () => {
     else
      navigate("/login")
   },[]);
-  // useEffect(() => {
-  //   calltheroom();
-  // }, []);
+
   return (
     <>
       <div>

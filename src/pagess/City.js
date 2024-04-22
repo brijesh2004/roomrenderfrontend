@@ -7,7 +7,7 @@ const City = () => {
   const [loading , setLoading] = useState(false);
   const callTheCity = async () => {
     try {
-        setLoading(false)
+        setLoading(true);
         const res = await fetch(`${process.env.REACT_APP_PATH}/getcity`, {
         method: 'GET',
         headers: {
@@ -24,7 +24,7 @@ const City = () => {
       }
 
       setAvCity(data);
-      setLoading(true);
+      setLoading(false);
      
     }
     catch (err) {
@@ -33,10 +33,10 @@ const City = () => {
   }
   useEffect(() => {
     document.title = `City Available`;
-  }, []);
-  useEffect(() => {
     callTheCity();
-  } ,[]);
+
+  }, []);
+ 
   return (
     <>
       <br /><br />
@@ -44,7 +44,7 @@ const City = () => {
 
       
       <div className="citydiv">
-      {!loading &&<Spinner/>}
+      {loading &&<Spinner/>}
       {avCity.map((element , ind) => {
        return <span className="spanelement" key={ind} >{element.city}    {element.count>=1000?element.count/1000+"K":element.count}</span>
       })}
