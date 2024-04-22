@@ -252,7 +252,7 @@ const Home = () => {
             ))}
             {searchedData.length===0&&<div>
            
-            <center> <h1>No Data </h1></center>
+            <center> {!Loading&&<h1>No Data </h1>}</center>
             </div>}
           </div>
         </div>
