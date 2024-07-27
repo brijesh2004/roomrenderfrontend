@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Spinner from './Loading';
 import ICountry from 'country-state-city'
 import Userprofile from "./Userprofile";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -51,7 +51,7 @@ const Home = () => {
       }
       setLoading(false);
       setUserData(data[0].allrooms);
-     
+
       setSearchedData(data[0].allrooms);
     } catch (err) {
       throw err
@@ -63,7 +63,7 @@ const Home = () => {
     const email1 = localStorage.getItem('email');
     setEmail(email1)
     SearchtheRoomPage();
-   
+
 
   }, []);
 
@@ -146,7 +146,7 @@ const Home = () => {
       (document) => document.place.toLowerCase() === query.toLowerCase()
     );
     setSearchedData(filteredData);
-   
+
   };
 
 
@@ -159,7 +159,7 @@ const Home = () => {
       }
       <br />
       <div className="list_home_page">
-        <div className="">
+        <div className="list_name">
           <div className="country_city_state">
             <select onChange={(e) => { setCountryID(e.target.value); setCountryName(e.target.selectedOptions[0].getAttribute('data')) }}>
               <option value={Number(-1)} data="">Select Country</option>
@@ -220,6 +220,9 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+
+
         <div className="user_search_list">
           {Loading && <Spinner />}
           <div className="search_details">
@@ -235,14 +238,14 @@ const Home = () => {
                 <p><span className="room_details">Price</span>  - {document.price}</p>
                 <p><span className="room_details">Types</span>  - {document.roomtype}</p>
                 <p><span className="room_details">Uploaded Date</span>  - {document.date.slice(0, 10).split('-').reverse().join('-')}</p>
-                <div style={{display:'flex', justifyContent:'space-between'}}>
-                    <div>
-                  <a href={`${document.location}`} target="_blank">
-                    Go To Map
-                  </a>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div>
+                    <a href={`${document.location}`} target="_blank">
+                      Go To Map
+                    </a>
                   </div>
                   <div>
-                    <button className="visit_profile_btn" onClick={()=>navigate(`/user/${document.userId}`)}>
+                    <button className="visit_profile_btn" onClick={() => navigate(`/user/${document.userId}`)}>
                       Visit Profile
                     </button>
                   </div>
@@ -250,9 +253,9 @@ const Home = () => {
                 <br />
               </div>
             ))}
-            {searchedData.length===0&&<div>
-           
-            <center> {!Loading&&<h1>No Data </h1>}</center>
+            {searchedData.length === 0 && <div>
+
+              <center> {!Loading && <h1>No Data </h1>}</center>
             </div>}
           </div>
         </div>

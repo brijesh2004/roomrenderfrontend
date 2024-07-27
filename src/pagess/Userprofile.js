@@ -21,7 +21,6 @@ const Userprofile = () => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const userData = await response.json();
-            console.log(userData.mess.rooms);
             setName(userData.mess.name);
             setRooms(userData.mess.rooms);
             setLoading(false)

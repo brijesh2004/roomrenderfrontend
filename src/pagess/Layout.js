@@ -12,12 +12,10 @@ import Register from './Register';
 import Logout from './Logout';
 import ChangePassword from './ChangePassword';
 import Userprofile from './Userprofile';
-
 const Layout = () => {
   return (
     <>
     <Router>
-    
     <Navbar/>
     <Routes>
           <Route exact path='/' element={<Home/>}></Route>

@@ -14,11 +14,8 @@ const Profile = () => {
   const [userroom, setUserroom] = useState([]);
 
   const callprofilePage = async () => {
-
     try {
-
       setLoading(true)
-
       const res = await fetch(`${process.env.REACT_APP_PATH}/profile`, {
         method: 'GET',
         credentials: "include",
@@ -43,7 +40,7 @@ const Profile = () => {
 
     }
     catch (err) {
-      navigate('/login');
+      navigate('/Login');
     }
   }
 
