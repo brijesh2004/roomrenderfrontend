@@ -12,6 +12,7 @@ import Register from './Register';
 import Logout from './Logout';
 import ChangePassword from './ChangePassword';
 import Userprofile from './Userprofile';
+import RegisterLogin from './RegisterLogin';
 const Layout = () => {
   return (
     <>
@@ -21,8 +22,8 @@ const Layout = () => {
           <Route exact path='/' element={<Home/>}></Route>
           <Route exact path='/City' element={<City/>}></Route>
           <Route exact path='/Profile' element={<Profile/>}></Route>
-          <Route exact path='/Login' element={<Login/>}></Route>
-          <Route exact path='/Register' element={<Register/>}></Route>
+          <Route exact path='/Login' element={<RegisterLogin/>}></Route>
+          {/* <Route exact path='/Register' element={<Register/>}></Route> */}
           <Route exact path='/Postroom' element={<Postroom/>}></Route>
           <Route exact path='/logout' element={<Logout/>}></Route>
           <Route exact path='/user/:id' element={<Userprofile/>}></Route>

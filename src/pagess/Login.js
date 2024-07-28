@@ -53,11 +53,12 @@ const Login = () => {
        <br /><br />
        <UserVarify.Provider value={{userVarified}}>
       <form className='loginfield'>
-      <h1>Login</h1>
+      <label htmlFor="email" className='level'>Email:</label>
        <input type="text" placeholder='Enter Your Email' className='postforminp' autoComplete='off'
         value={email}
         onChange={(e)=> setEmail(e.target.value)}
        /><br />
+       <label htmlFor="password" className='level'>Password:</label>
        <input type="password" placeholder='Enter Your Password' className='postforminp' autoComplete='off'
         value={password}
         onChange={(e)=> setpassword(e.target.value)}

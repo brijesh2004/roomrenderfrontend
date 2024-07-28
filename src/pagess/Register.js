@@ -54,19 +54,22 @@ const Register = () => {
     <>
       <br /><br />
       <form className='loginfield'>
-      <h1>Sign Up</h1>
+       <label htmlFor="name" className='level'>Name:</label>
        <input type="text" placeholder='Enter Your Name' name="name" className='postforminp' autoComplete='off'
         value={user.name}
         onChange={handleInputs}
        /><br />
+        <label htmlFor="email" className='level'>Email:</label>
        <input type="email" placeholder='Enter Your Email' name="email" className='postforminp' autoComplete='off'
           value={user.email}
           onChange={handleInputs}
        /><br />
+        <label htmlFor="password" className='level'>Password:</label>
        <input type="password" placeholder='Create password' name="password" className='postforminp' autoComplete='off'
           value={user.password}
           onChange={handleInputs}
        /><br />
+        <label htmlFor="cpassword" className='level'>Confirm Password:</label>
       <input type="password" placeholder='Confirm Password' name="cpassword" className='postforminp' autoComplete='off'
           value={user.cpassword}
           onChange={handleInputs}

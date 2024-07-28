@@ -6,6 +6,10 @@ body{
   text-align: center;
 }
 
+:root {
+  --navbar-height: 100px; /* Set this to your navbar's actual height */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -144,18 +148,28 @@ text-transform: capitalize;
   /* border: 1px solid black; */
  box-shadow: 0 0 20px;
 }
+
 .loginfield{
   text-align: center;
+  /* display: flex; */
   overflow: hidden;
-  width: 60vw;
-  box-shadow: 0px 0px 20px ;
+  width: fit-content;
   box-sizing: content-box;
+  border-radius: 10px;
   margin: auto;
+}
+.level{
+  display: block;
+  line-height: 0.2px;
+  margin-top: 20px;
+  text-align: left;
+  margin-left: 20px;
 }
 
 .postforminp{
   width: 300px;
   margin: 20px;
+  border: 2px solid white;
   height: 40px;
   overflow: hidden;
   color: white;
@@ -164,8 +178,16 @@ text-transform: capitalize;
   border-left: none; */
 }
 
+.get_logout{
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
 .post_room_page_head{
-  width: 70vw;
+  width: fit-content;
   display: block;
   margin: auto;
   /* border: 1px solid red; */
@@ -350,7 +372,7 @@ input{
   }
 
   .navbar-links.open {
-    min-height: 350px;
+    min-height: 330px;
   }
 
   .navbar-links a {
@@ -367,3 +389,69 @@ input{
     transition: 0.3s ease-out;
   }
 }
+
+
+.get_started{
+  background-color: rgb(249, 3, 85);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.register_login{
+  /* text-align: center; */
+  display: block;
+  margin: auto;
+  background-color: #000000;
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.togglebtn{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  
+}
+.togglebtn span{
+width: 130px;
+text-align: center;
+cursor: pointer;
+margin-top: 20px;
+height: 35px;
+}
+.togglebtn span:first-child{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.togglebtn span:last-child{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.togglebtn .one {
+  background-color: green; 
+  color: white; 
+}
+.togglebtn span:not(.one) {
+  background-color: #f0f0f0; 
+  color: #333; 
+}
+
+.error_page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: calc(100vh - var(--navbar-height)); /* Subtracts the navbar height */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.error_404{
+ font-size: 100px;
+ color: rgb(255, 0, 225);
+ font-weight: 1000;
+}
+
+

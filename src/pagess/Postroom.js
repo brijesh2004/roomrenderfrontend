@@ -148,7 +148,7 @@ const Postroom = () => {
         <br /><br />
         <form className='postroomdetails'>
           <h4>Fill Your Room Details</h4>
-          <label htmlFor="roomrenterName">Name:</label>
+          <label htmlFor="roomrenterName" className='level'>Name:</label>
           <input name='roomrenterName' type="text" placeholder='Enter Your Name' className='postforminp'
             value={user.roomrenterName}
             onChange={handleInputs}
@@ -222,7 +222,7 @@ const Postroom = () => {
           onChange={handleInputs}
       /><br /> */}
 
-          <label htmlFor="mobile">Mobile:</label>
+          <label htmlFor="mobile" className='level'>Mobile:</label>
           <input name='mobile' type="text" placeholder='Enter Mobile Number' className='postforminp'
             value={user.mobile}
             onChange={handleInputs}
@@ -230,21 +230,21 @@ const Postroom = () => {
           /> <br />
 
 
-          <label htmlFor="roomrenterName">Area:</label>
+          <label htmlFor="roomrenterName" className='level'>Area:</label>
           <input name='place' type="text" placeholder='Enter Area' className='postforminp'
             value={user.place}
             onChange={handleInputs}
             required
           /> <br />
 
-          <label htmlFor="roomrenterName">Types:</label>
+          <label htmlFor="roomrenterName" className='level'>Types:</label>
           <input name='roomtype' type="text" placeholder='eg - family or all , 2 BHK' className='postforminp'
             value={user.roomtype}
             onChange={handleInputs}
             required
           /><br />
 
-          <label htmlFor="roomrenterName">Location:</label>
+          <label htmlFor="roomrenterName" className='level'>Location:</label>
           <input name='location' type="url" placeholder='Enter your Location From map' className='postforminp'
             value={user.location}
             onChange={handleInputs}
@@ -258,7 +258,7 @@ const Postroom = () => {
       /><br /> */}
 
 
-          <label htmlFor="roomrenterName">Price:</label>
+          <label htmlFor="roomrenterName" className='level'>Price:</label>
           <input name='price' type="text" placeholder='Enter the Price' className='postforminp'
             value={user.price}
             onChange={handleInputs}

@@ -28,10 +28,9 @@ const Navbar = () => {
                     <Link to='/'>Home</Link>
                     <Link to='City'>Cities</Link>
                     {login&&<Link to="/Postroom">Post</Link>}
-                    {!login&&<Link to='/Login'>Login</Link>}
-                    {!login&& <Link to='/Register'>Register</Link>}
+                    {!login&&<Link to='/Login'><button className="get_started">Get Started</button></Link>}
                     {login&& <Link to='/profile'>Profile</Link>}
-                    {login&& <Link to='/logout'>Logout</Link>}
+                    {login&& <Link to='/logout'><button className="get_logout">Logout</button></Link>}
             </div>
          <div className="navbar-toggle" onClick={toggleMenu}>
           <span className="bar"></span>
