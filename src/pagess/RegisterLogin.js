@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Register from './Register';
 import Login from './Login';
-const RegisterLogin = () => {
-
+const RegisterLogin = ({login , setLogin}) => {
     const [register , setRegister] = useState(false);
-    const setLogin = ()=>{
+    const setChageLogin = ()=>{
         setRegister(true);
     }
     const setRegi = ()=>{
@@ -15,9 +14,9 @@ const RegisterLogin = () => {
     <div className='register_login'>
        <div className='togglebtn'>
        <span onClick={setRegi} className={register?'':'one'}>Register</span>
-       <span  onClick={setLogin} className={register?'one':''}>Login</span>
+       <span  onClick={setChageLogin} className={register?'one':''}>Login</span>
        </div>
-       {register?<Login/>:<Register/>}
+       {register?<Login login={login} setLogin={setLogin}/>:<Register login={login} setLogin={setLogin}/>}
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from './Loading';
 import ICountry from 'country-state-city'
-import Userprofile from "./Userprofile";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,23 +12,26 @@ const Home = () => {
   const [searchedValue, setSearchedValue] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
-
-  const [email, setEmail] = useState("");
-
   const [countryID, setCountryID] = useState(-1);
   const [countryName, setCountryName] = useState("");
-
   const [state, setState] = useState([]);
-
   const [stateID, setStateID] = useState(-1);
-
   const [stateName, setStateName] = useState("");
-
   const [city, setCity] = useState([]);
-
   const [cityID, setCityID] = useState(-1);
-
   const [cityName, setCityName] = useState("");
+  
+  const formatDate = (timestamp) => {
+  const time = Number(timestamp);
+  if (isNaN(time)) {
+    return 'Invalid Date';
+  }
+  const date = new Date(time);
+  if (isNaN(date.getTime())) {
+    return 'Invalid Date';
+  }
+  return date.toLocaleString();
+  };
 
 
   const SearchtheRoomPage = async () => {
@@ -37,22 +39,20 @@ const Home = () => {
       setLoading(true);
       const res = await fetch(`${process.env.REACT_APP_PATH}/api`, {
         method: "GET",
+        credentials:"include",
         headers: {
           'Origin': `${process.env.REACT_APP_PATH}`,
           "Content-Type": "application/json",
         },
       });
-
       const data = await res.json();
-
-      if (!res.status === 200) {
+      if (!(res.status === 200)){
         const error = new Error(res.error);
         throw error;
       }
       setLoading(false);
-      setUserData(data[0].allrooms);
-
-      setSearchedData(data[0].allrooms);
+      setUserData(data.data);
+      setSearchedData(data.data);
     } catch (err) {
       throw err
     }
@@ -60,11 +60,7 @@ const Home = () => {
 
   useEffect(() => {
     document.title = `Search the room`;
-    const email1 = localStorage.getItem('email');
-    setEmail(email1)
     SearchtheRoomPage();
-
-
   }, []);
 
   useEffect(() => {
@@ -113,7 +109,6 @@ const Home = () => {
           setState(val);
         } catch (error) {
           setState([]);
-          console.error('Error fetching states:', error);
         }
       };
 
@@ -123,7 +118,7 @@ const Home = () => {
     if (stateID !== -1) {
       const fetchCity = async () => {
         try {
-          const val = await ICountry.getCitiesOfState(stateID)
+          const val = ICountry.getCitiesOfState(stateID)
           setCity(val)
         } catch (err) {
           setCity([])
@@ -154,9 +149,6 @@ const Home = () => {
     <>
       <br />
       <br />
-      {
-        !email ? <center><h2>For Post your Room First Create Account </h2> </center> : ""
-      }
       <br />
       <div className="list_home_page">
         <div className="list_name">
@@ -236,11 +228,11 @@ const Home = () => {
                 <p><span className="room_details">Mobile</span>  - {document.mobile}</p>
                 <p><span className="room_details">Area</span>  - {document.place}</p>
                 <p><span className="room_details">Price</span>  - {document.price}</p>
-                <p><span className="room_details">Types</span>  - {document.roomtype}</p>
-                <p><span className="room_details">Uploaded Date</span>  - {document.date.slice(0, 10).split('-').reverse().join('-')}</p>
+                <p><span className="room_details">Types</span>  - {document.roomdetails}</p>
+                <p><span className="room_details">Date</span>  - {formatDate(document.CreatedAt)}</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <a href={`${document.location}`} target="_blank">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${document.place},${document.city},${document.state},${document.country}`} target="_blank" rel="noreferrer">
                       Go To Map
                     </a>
                   </div>

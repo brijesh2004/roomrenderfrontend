@@ -4,13 +4,11 @@ import ICountry from 'country-state-city';
 
 
 
-const Postroom = () => {
+const Postroom = ({login}) => {
   const Allcountry = ICountry.getAllCountries();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const [submit, setSubmit] = useState("Submit");
-  const [email, setEmail] = useState("");
-
   const [countryID, setCountryID] = useState(-1);
   const [country, setCountry] = useState("");
   const [stateID, setStateID] = useState(-1);
@@ -48,12 +46,10 @@ const Postroom = () => {
   }
   useEffect(() => {
     document.title = `post room details`;
-    const email1 = localStorage.getItem('email');
-    if (!email1)
+    if (!login)
       navigate("/login")
-    setEmail(email1)
     callprofilePage();
-  }, [])
+  }, [login])
 
 
   const [user, setUser] = useState({
@@ -64,7 +60,7 @@ const Postroom = () => {
     city: "",
     mobile: "",
     place: "",
-    roomtype: "",
+    roomdetails: "",
     location: "",
     price: ""
   });
@@ -81,17 +77,18 @@ const Postroom = () => {
 
   const PostData = async (e) => {
     e.preventDefault();
-    const { roomrenterName, mobile, place, roomtype, location, price } = user;
+    const { roomrenterName, mobile, place, roomdetails, price } = user;
 
     setSubmit("Submiting...");
     const res = await fetch(`${process.env.REACT_APP_PATH}/roomupload`, {
       method: 'POST',
+      credentials:"include",
       headers: {
         'Origin': `${process.env.REACT_APP_PATH}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        roomrenterName, email, country, state, city, mobile, place, roomtype, location, price
+        roomrenterName, country, state, city, mobile, place, roomdetails, price
       })
     })
 
@@ -99,7 +96,6 @@ const Postroom = () => {
     setSubmit("Submiting");
     if (res.status === 201) {
       window.alert("Post room Successfully");
-
       navigate("/");
     }
     else {
@@ -154,14 +150,6 @@ const Postroom = () => {
             onChange={handleInputs}
             required
           /><br />
-
-          {/* <span>Email </span> <input name='email'  type="text" placeholder='Enter Register EmailID' className='postforminp'
-        value={user.email}
-        onChange={handleInputs}
-        required="required"
-      /><br /> */}
-
-
           {/* // selecting the country */}
           <select onChange={(e) => { setCountryID(e.target.value); setCountry(e.target.selectedOptions[0].getAttribute('data')); }} required>
 
@@ -210,18 +198,6 @@ const Postroom = () => {
 
           <br /><br />
 
-
-
-          {/* <span>Email* </span> <input name='email'  type="text" placeholder='Enter Your Register Email' className='postforminp'
-        value={user.email}
-        onChange={handleInputs}
-      /><br /> */}
-
-          {/* <span>City Name* </span> <input name='City' type="text" placeholder='Enter the City' className='postforminp'
-          value={user.City}
-          onChange={handleInputs}
-      /><br /> */}
-
           <label htmlFor="mobile" className='level'>Mobile:</label>
           <input name='mobile' type="text" placeholder='Enter Mobile Number' className='postforminp'
             value={user.mobile}
@@ -230,35 +206,20 @@ const Postroom = () => {
           /> <br />
 
 
-          <label htmlFor="roomrenterName" className='level'>Area:</label>
+          <label htmlFor="place" className='level'>Area:</label>
           <input name='place' type="text" placeholder='Enter Area' className='postforminp'
             value={user.place}
             onChange={handleInputs}
             required
           /> <br />
 
-          <label htmlFor="roomrenterName" className='level'>Types:</label>
-          <input name='roomtype' type="text" placeholder='eg - family or all , 2 BHK' className='postforminp'
-            value={user.roomtype}
+          <label htmlFor="roomdetails" className='level'>Rooms Details:</label>
+          <input name='roomdetails' type="text" placeholder='eg - family or all , 2 BHK' className='postforminp'
+            value={user.roomdetails}
             onChange={handleInputs}
             required
           /><br />
-
-          <label htmlFor="roomrenterName" className='level'>Location:</label>
-          <input name='location' type="url" placeholder='Enter your Location From map' className='postforminp'
-            value={user.location}
-            onChange={handleInputs}
-            required
-          />
-          <br /><br />
-
-          {/* <span>Pin Code* </span> <input name='Pincode' type="Number" placeholder='Enter the Pincod' className='postforminp' 
-        value={user.Pincode}
-        onChange={handleInputs}
-      /><br /> */}
-
-
-          <label htmlFor="roomrenterName" className='level'>Price:</label>
+          <label htmlFor="price" className='level'>Price:</label>
           <input name='price' type="text" placeholder='Enter the Price' className='postforminp'
             value={user.price}
             onChange={handleInputs}

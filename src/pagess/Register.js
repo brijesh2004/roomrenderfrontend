@@ -2,7 +2,7 @@ import React ,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-const Register = () => {
+const Register = ({login , setLogin}) => {
   const navigate = useNavigate();
   const [Register , setRegister] = useState("Register");
 
@@ -19,9 +19,13 @@ const Register = () => {
   const PostData = async (e) => {
     e.preventDefault();
     const {name ,email , password , cpassword} = user;
+    if(password!==cpassword){
+      alert("password must be same");
+    }
       setRegister("Register...");
     const res = await fetch(`${process.env.REACT_APP_PATH}/register`,{
       method:'POST',
+      credentials:"include",
       headers:{
         'Origin':`${process.env.REACT_APP_PATH}`,
         "Content-Type":"application/json"
@@ -32,24 +36,22 @@ const Register = () => {
     })
 
     const data = await res.json();
-
     setRegister("Register");
     if(data.status === 422 || !data){
       window.alert("Invalid Registration");
     }
     else{
       window.alert(" Registration Successully");
-
-      navigate("/login");
+      setLogin(true);
+      navigate("/");
     }
   }
   useEffect(()=>{
     document.title=`user Sign Up`;
-    const email1 = localStorage.getItem('email');
-    if(email1){
-      navigate("/");
+    if(login){
+      navigate("/")
     }
-  } ,[]);
+  } ,[login]);
   return (
     <>
       <br /><br />

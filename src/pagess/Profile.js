@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Spinner from './Loading';
 
-const Profile = () => {
+const Profile = ({ login }) => {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({});
-
-  const [userId , setUserId] = useState("");
-
   const [Loading, setLoading] = useState(false);
 
   const [userroom, setUserroom] = useState([]);
+
+  
+  const formatDate = (timestamp) => {
+    const time = Number(timestamp);
+    if (isNaN(time)) {
+      return 'Invalid Date';
+    }
+    const date = new Date(time);
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+    return date.toLocaleString();
+    };
 
   const callprofilePage = async () => {
     try {
@@ -28,10 +38,12 @@ const Profile = () => {
 
       const data = await res.json();
       setLoading(false)
-      setUserroom(data.rooms);
-      setUserData(data);
-      setUserId(data._id);
+      // setUserroom(data.rooms);
+      // setUserData(data);
+      // setUserId(data._id);
       // getting the user uploaded room 
+      setUserData(data.data);
+      setUserroom(data.rooms)
 
       if (!res.status === 200) {
         const error = new Error(res.error);
@@ -44,17 +56,16 @@ const Profile = () => {
     }
   }
 
-  
+
 
 
   useEffect(() => {
     document.title = `User Profile`;
-    const email1= localStorage.getItem('email');
-    if(email1)
-     callprofilePage();
+    if (login)
+      callprofilePage();
     else
-     navigate("/login")
-  },[]);
+      navigate("/login")
+  }, [login]);
 
   return (
     <>
@@ -76,44 +87,37 @@ const Profile = () => {
             {Loading && <Spinner />}
             <div className="search_details">
               {!Loading && userroom.map((document) => (
-                  <div key={document._id} className="search_result_box">
-                    <p className="status_details">open</p>
-                    <p><span className="room_details">Name</span> - {document.roomrenterName}</p>
-                    {/* <p><span className="room_details">email</span> - {document.email}</p> */}
-                    <p><span className="room_details">Country </span> - {document.country}</p>
-                    <p><span className="room_details">State</span>  - {document.state}</p>
-                    <p><span className="room_details">City</span>  - {document.city}</p>
-                    <p><span className="room_details">Mobile</span>  - {document.mobile}</p>
-                    <p><span className="room_details">Area</span>  - {document.place}</p>
-                    <p><span className="room_details">Price</span>  - {document.price}</p>
-                    {/* <p><span className="room_details">Location</span>  - {document.location}</p> */}
-                    <p><span className="room_details">Uploaded Date</span>  - {document.date.slice(0,10).split('-').reverse().join('-')}</p>
-                    <a
-                      href={`${document.location}`}
-                    >
-                      Go To Map
-                    </a> <br />
-                   
-                    <button className="deletebtn" onClick={async () => {
-                      const res = await fetch(`${process.env.REACT_APP_PATH}/delete/myModel/${document._id}?userId=${userId}`, {
-                        method: 'DELETE',
-                        credentials: 'include',
-                        headers: {
-                          'Origin': `${process.env.REACT_APP_PATH}`,
-                          "Content-Type": "application/json"
-                        }
-                      })
-                      const data =await res.json();
-                      if(data.status===404 || data.status===500){
-                        alert("Error");
+                <div key={document._id} className="search_result_box">
+                  <p className="status_details">open</p>
+                  <p><span className="room_details">Name</span> - {document.roomrenterName}</p>
+                  {/* <p><span className="room_details">email</span> - {document.email}</p> */}
+                  <p><span className="room_details">Country </span> - {document.country}</p>
+                  <p><span className="room_details">State</span>  - {document.state}</p>
+                  <p><span className="room_details">City</span>  - {document.city}</p>
+                  <p><span className="room_details">Mobile</span>  - {document.mobile}</p>
+                  <p><span className="room_details">Area</span>  - {document.place}</p>
+                  <p><span className="room_details">Price</span>  - {document.price}</p>
+                  <p><span className="room_details">Date</span>  - {formatDate(document.CreatedAt)}</p>
+                  <button className="deletebtn" onClick={async () => {
+                    const res = await fetch(`${process.env.REACT_APP_PATH}/delete/myModel/${document._id}`, {
+                      method: 'DELETE',
+                      credentials: 'include',
+                      headers: {
+                        'Origin': `${process.env.REACT_APP_PATH}`,
+                        "Content-Type": "application/json"
                       }
-                    
-                      alert("Room data Delete Successfully");
-                      navigate('/');
+                    })
+                    const data = await res.json();
+                    if (data.status === 404 || data.status === 500) {
+                      alert("Error");
+                    }
+
+                    alert("Room data Delete Successfully");
+                    navigate('/');
 
 
-                    }}><i className="fa fa-trash"></i></button>
-                  </div>
+                  }}><i className="fa fa-trash"></i></button>
+                </div>
               ))}
             </div>
           </div>

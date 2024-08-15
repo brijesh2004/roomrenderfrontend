@@ -2,23 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
-const Navbar = () => {
-  const [login , setLogin] = useState(false);
+const Navbar = ({login , setLogin}) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
- let email = "";
-  useEffect(() => {
-    email =  localStorage.getItem('email')
-    if(email)
-     setLogin(true)
-    else
-     setLogin(false)
-  },[]);
-
-
   const Nav = ()=>{
     return(
       <>

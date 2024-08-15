@@ -1,38 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from './Loading';
 
 const Userprofile = () => {
-    const {id} = useParams();
+    const {id} =  useParams();
     const [name , setName] = useState("");
     const [rooms , setRooms] = useState([]);
     const [loading , setLoading] = useState(true);
-    const fetchUser = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${process.env.REACT_APP_PATH}/user/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Origin': process.env.REACT_APP_PATH // Assuming you need to set Origin here; usually, it's not required
-                }
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const userData = await response.json();
-            setName(userData.mess.name);
-            setRooms(userData.mess.rooms);
-            setLoading(false)
-        } catch (err) {
-            setLoading(false);
-            alert(`Error fetching user: ${err.message}`);
-        }
-    };
 
-    useEffect(() => {
-        fetchUser();
-    }, [id]); // Include id as a dependency for re-fetching if the id changes
+    const formatDate = (timestamp) => {
+        const time = Number(timestamp);
+        if (isNaN(time)) {
+          return 'Invalid Date';
+        }
+        const date = new Date(time);
+        if (isNaN(date.getTime())) {
+          return 'Invalid Date';
+        }
+        return date.toLocaleString();
+        };
+
+        
+
+        const fetchUser = useCallback(async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${process.env.REACT_APP_PATH}/user/${id}`, {
+                    method: 'GET',
+                    credentials:"include",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': process.env.REACT_APP_PATH
+                    }
+                });
+                const userData = await response.json();
+                setName(userData.mess.name);
+                setRooms(userData.rooms);
+                setLoading(false);
+            } catch (err) {
+                setLoading(false);
+                alert(`Error fetching user: ${err.message}`);
+            }
+        }, [id]);
+    
+        useEffect(() => {
+            fetchUser();
+        }, [fetchUser]);
 
     return (
         <>
@@ -53,13 +66,9 @@ const Userprofile = () => {
                     <p><span className="room_details">Mobile</span>  - {document.mobile}</p>
                     <p><span className="room_details">Area</span>  - {document.place}</p>
                     <p><span className="room_details">Price</span>  - {document.price}</p>
+                    <p><span className="room_details">Date</span>  - {formatDate(document.CreatedAt)}</p>
                     {/* <p><span className="room_details">Location</span>  - {document.location}</p> */}
-                    <p><span className="room_details">Uploaded Date</span>  - {document.date.slice(0,10).split('-').reverse().join('-')}</p>
-                    <a
-                      href={`${document.location}`}
-                    >
-                      Go To Map
-                    </a> <br />
+                    
                             </div>
                         )
                     )

@@ -16,14 +16,13 @@ const City = () => {
         }
       });
       const data = await res.json();
-      
 
       if (!data.status === 200) {
         const err = new Error("error on the city page");
         throw err;
       }
 
-      setAvCity(data);
+      setAvCity(data.data);
       setLoading(false);
      
     }
@@ -46,7 +45,7 @@ const City = () => {
       <div className="citydiv">
       {loading &&<Spinner/>}
       {avCity.map((element , ind) => {
-       return <span className="spanelement" key={ind} >{element.city}    {element.count>=1000?element.count/1000+"K":element.count}</span>
+       return <span className="spanelement" key={ind} >{element._id}    {element.count}</span>
       })}
       </div>
     </>

@@ -2,20 +2,18 @@ import React, { createContext } from 'react'
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const UserVarify = createContext();
 
 
-const Login = () => {
+const Login = ({login , setLogin}) => {
   const navigate = useNavigate();
   const [email , setEmail] = useState('');
   const [password , setpassword] = useState('');
-  const [userVarified , setUserVarified] = useState(false);
-  const [Login , setLogin] = useState("Login");
+  const [LoginBtn , setLoginBtn] = useState("Login");
 
 
   const loginUser = async (e) => {
     e.preventDefault();
-    setLogin("Login...")
+    setLoginBtn("Login...")
     const res = await fetch(`${process.env.REACT_APP_PATH}/signin` , {
       method:'POST',
       credentials:'include',
@@ -28,30 +26,26 @@ const Login = () => {
       })
     })
     const data = await res.json();
-    setLogin("Login")
+    setLoginBtn("Login")
     if(res.status === 400 || !data) {
       window.alert("Invalid Login Details");
     }
     else{
-      localStorage.setItem('email' , email);
       window.alert(" Login Successfully");
-     
-      setUserVarified(true);
+      setLogin(true);
       navigate("/");
-      window.location.reload(false);
     }
   }
   useEffect(()=>{
     document.title=`user Login`;
-    const email1 = localStorage.getItem('email')
-    if(email1){
+    if(login){
       navigate("/")
     }
-  },[]);
+  },[login]);
   return (
     <>
        <br /><br />
-       <UserVarify.Provider value={{userVarified}}>
+       <div>
       <form className='loginfield'>
       <label htmlFor="email" className='level'>Email:</label>
        <input type="text" placeholder='Enter Your Email' className='postforminp' autoComplete='off'
@@ -63,13 +57,11 @@ const Login = () => {
         value={password}
         onChange={(e)=> setpassword(e.target.value)}
        /><br />
-       <input type="submit" value={Login} className='searchbtn' onClick={loginUser}/> <br />
-       <a href="/ChangePassword">Forget Password</a>
+       <input type="submit" value={LoginBtn} className='searchbtn' onClick={loginUser}/> <br />
      </form>
-     </UserVarify.Provider>
+     </div>
     </>
   )
 }
 
 export default Login  
-export {UserVarify}
