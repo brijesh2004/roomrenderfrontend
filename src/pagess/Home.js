@@ -1,45 +1,50 @@
 import React, { useEffect, useState } from "react";
 import Spinner from './Loading';
-import ICountry from 'country-state-city'
+import ICountry from 'country-state-city';
 import { useNavigate } from 'react-router-dom';
-
 
 const Home = () => {
   const navigate = useNavigate();
+  const [pageNumber , setPageNumber] = useState(1);
   const country = ICountry.getAllCountries();
-  const [userData, setUserData] = useState([]);
+  // const [userData, setUserData] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
-  const [searchedValue, setSearchedValue] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [countryID, setCountryID] = useState(-1);
-  const [countryName, setCountryName] = useState("");
+  const [countryName, setCountryName] = useState({
+    name: '',
+    id: ''
+  });
   const [state, setState] = useState([]);
-  const [stateID, setStateID] = useState(-1);
-  const [stateName, setStateName] = useState("");
+  const [stateName, setStateName] = useState({
+    name: '',
+    id: ''
+  });
   const [city, setCity] = useState([]);
-  const [cityID, setCityID] = useState(-1);
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState({
+    name: '',
+    id: ''
+  });
   
   const formatDate = (timestamp) => {
-  const time = Number(timestamp);
-  if (isNaN(time)) {
-    return 'Invalid Date';
-  }
-  const date = new Date(time);
-  if (isNaN(date.getTime())) {
-    return 'Invalid Date';
-  }
-  return date.toLocaleString();
+    const time = Number(timestamp);
+    if (isNaN(time)) {
+      return 'Invalid Date';
+    }
+    const date = new Date(time);
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+    return date.toLocaleString();
   };
 
-
-  const SearchtheRoomPage = async () => {
+  const SearchtheRoomPage = async (page=1) => {
     try {
+      setPageNumber(page);
       setLoading(true);
-      const res = await fetch(`${process.env.REACT_APP_PATH}/api`, {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/api?page=${page}&country=${countryName.name}&state=${stateName.name}&city=${cityName.name}&place=${query}`, {
         method: "GET",
-        credentials:"include",
+        credentials: "include",
         headers: {
           'Origin': `${process.env.REACT_APP_PATH}`,
           "Content-Type": "application/json",
@@ -51,100 +56,49 @@ const Home = () => {
         throw error;
       }
       setLoading(false);
-      setUserData(data.data);
+      // setUserData(data.data);
       setSearchedData(data.data);
     } catch (err) {
-      throw err
+      // console.error(err);
+      setLoading(false);
     }
+  };
+
+  const handleInputs = (e) => {
+    setQuery(e.target.value);
   };
 
   useEffect(() => {
     document.title = `Search the room`;
     SearchtheRoomPage();
-  }, []);
+  }, [countryName, stateName, cityName]);
 
   useEffect(() => {
-    if (Number(countryID) === -1) {
-      setSearchedData(userData);
-      setSearchedValue(userData);
-
+    if (countryName.id) {
+      const stateList = ICountry.getStatesOfCountry(countryName.id);
+      setState(stateList);
+      setStateName({ name: '', id: '' });
+      setCity([]);
+      setCityName({ name: '', id: '' });
+    } else {
+      setState([]);
+      setStateName({ name: '', id: '' });
+      setCity([]);
+      setCityName({ name: '', id: '' });
     }
-    else if (Number(countryID) !== -1 && Number(stateID) === -1) {
-      const filteredData = userData.filter(
-        (document) => document.country.toLowerCase() === countryName.toLowerCase()
-      );
-      setSearchedData(filteredData)
-      setSearchedValue(filteredData)
-    }
-    else if (Number(countryID) !== -1 && Number(stateID) !== -1 && Number(cityID) === -1) {
-      const filteredData = userData.filter(
-        (document) => document.country.toLowerCase() === countryName.toLowerCase() && document.state.toLowerCase() === stateName.toLowerCase()
-      );
-      setSearchedData(filteredData)
-      setSearchedValue(filteredData)
-    }
-    else if (Number(countryID) !== -1 && Number(stateID) !== -1 && Number(cityID) !== -1) {
-      const filteredData = userData.filter(
-        (document) => document.country.toLowerCase() === countryName.toLowerCase() && document.state.toLowerCase() === stateName.toLowerCase() && document.city.toLowerCase() === cityName.toLowerCase()
-      );
-      setSearchedData(filteredData)
-      setSearchedValue(filteredData)
-    }
-
-    else {
-      setSearchedData(userData);
-      setSearchedValue(userData)
-    }
-
-  }, [countryID, stateID, cityID, countryName, stateName, cityName])
-
-
-
+  }, [countryName]);
+  
   useEffect(() => {
-    // This will run when countryID changes
-    if (countryID !== -1) {
-      const fetchStates = async () => {
-        try {
-          const val = ICountry.getStatesOfCountry(countryID);
-          setState(val);
-        } catch (error) {
-          setState([]);
-        }
-      };
-
-      fetchStates();
+    if (stateName.id) {
+      const cityList = ICountry.getCitiesOfState(stateName.id);
+      setCity(cityList);
+      setCityName({ name: '', id: '' });
+    } else {
+      setCity([]);
+      setCityName({ name: '', id: '' });
     }
-
-    if (stateID !== -1) {
-      const fetchCity = async () => {
-        try {
-          const val = ICountry.getCitiesOfState(stateID)
-          setCity(val)
-        } catch (err) {
-          setCity([])
-        }
-      }
-      fetchCity()
-    }
-  }, [countryID, stateID]);
-
-
-  const handleInputs = (e) => {
-    let value = e.target.value;
-    setQuery(value);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    const filteredData = searchedValue.filter(
-      (document) => document.place.toLowerCase() === query.toLowerCase()
-    );
-    setSearchedData(filteredData);
-
-  };
-
-
+  }, [stateName]);
+  
   return (
     <>
       <br />
@@ -153,21 +107,41 @@ const Home = () => {
       <div className="list_home_page">
         <div className="list_name">
           <div className="country_city_state">
-            <select onChange={(e) => { setCountryID(e.target.value); setCountryName(e.target.selectedOptions[0].getAttribute('data')) }}>
-              <option value={Number(-1)} data="">Select Country</option>
+            <select 
+              onChange={(e) => {
+                setCountryName({
+                  name: e.target.selectedOptions[0].getAttribute('data'),
+                  id: e.target.value
+                });
+                setState([]);
+                setCity([]);
+                setStateName({ name: '', id: '' });
+                setCityName({ name: '', id: '' });
+              }}
+            >
+              <option value="" data="">Select Country</option>
               {
-                country.map((elem, index) => {
-                  return <option key={index} value={elem.id} data={elem.name}>{elem.name}</option>
-                })
+                country.map((elem, index) => (
+                  <option key={index} value={elem.id} data={elem.name}>{elem.name}</option>
+                ))
               }
             </select>
             <br /><br />
 
-
-            <select onChange={(e) => { setStateID(e.target.value); setStateName(e.target.selectedOptions[0].getAttribute('data')) }}>
-              <option value={Number(-1)} data="">Select State</option>
+            <select 
+              onChange={(e) => {
+                setStateName({
+                  name: e.target.selectedOptions[0].getAttribute('data'),
+                  id: e.target.value
+                });
+                setCity([]);
+                setCityName({ name: '', id: '' });
+              }}
+              value={stateName.id}
+            >
+              <option value="" data="">Select State</option>
               {
-                countryID !== -1 ?
+                countryName.id !== "" ?
                   state.map((elem, ind) => (
                     <option key={ind} value={elem.id} data={elem.name}>{elem.name}</option>
                   ))
@@ -178,11 +152,18 @@ const Home = () => {
 
             <br /><br />
 
-
-            <select onChange={(e) => { setCityID(e.target.value); setCityName(e.target.selectedOptions[0].getAttribute('data')) }}>
-              <option value={Number(-1)} data="">Select City</option>
+            <select 
+              onChange={(e) => {
+                setCityName({
+                  name: e.target.selectedOptions[0].getAttribute('data'),
+                  id: e.target.value
+                });
+              }}
+              value={cityName.id}
+            >
+              <option value="" data="">Select City</option>
               {
-                stateID !== -1 ?
+                stateName.id !== "" ?
                   city.map((elem, ind) => (
                     <option key={ind} value={elem.id} data={elem.name}>{elem.name}</option>
                   ))
@@ -193,27 +174,24 @@ const Home = () => {
 
             <br /><br />
 
-
-
             <div className="country_city_state setWidth">
               {
-                Number(countryID !== -1) && Number(stateID) !== -1 && Number(cityID) !== -1 ?
-                  <form className="searchform">
+                countryName.id && stateName.id && cityName.id ?
+                  <form className="searchform" onSubmit={(e) => { e.preventDefault(); SearchtheRoomPage(); }}>
                     <input
                       type="text"
                       placeholder="Search Area"
                       className="searchinp"
+                      value={query}
                       onChange={handleInputs}
                     />
                     <br />
-                    <input type="submit" value="Search" className="searchbtn" onClick={handleSearch} />
+                    <input type="submit" value="Search" className="searchbtn" />
                   </form> : ""
               }
             </div>
           </div>
         </div>
-
-
 
         <div className="user_search_list">
           {Loading && <Spinner />}
@@ -246,10 +224,13 @@ const Home = () => {
               </div>
             ))}
             {searchedData.length === 0 && <div>
-
               <center> {!Loading && <h1>No Data </h1>}</center>
             </div>}
           </div>
+        </div>
+        <div className="next_prev_btn">
+        <button onClick={() => SearchtheRoomPage(pageNumber - 1)} disabled={pageNumber === 1}>	&#8592; Prev</button>
+        <button onClick={() => SearchtheRoomPage(pageNumber + 1)} disabled={searchedData.length <=2}>Next &#8594;</button>
         </div>
       </div>
     </>

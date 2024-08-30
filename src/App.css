@@ -455,3 +455,21 @@ height: 35px;
 }
 
 
+
+
+.next_prev_btn{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.next_prev_btn button{
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  background:greenyellow;
+}
+.next_prev_btn button:disabled{
+  cursor: not-allowed;
+}
+
+
