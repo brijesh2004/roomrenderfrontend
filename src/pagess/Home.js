@@ -52,7 +52,7 @@ const Home = () => {
       <div className="search_item">
         <input type="text" placeholder="Enter the City" onChange={(e)=>setCity(e.target.value)}/>
         <input type="text" placeholder="Enter Area" onChange={(e)=>setArea(e.target.value)}/>
-        <button onClick={SearchtheRoomPage}>Search</button>
+        <button onClick={()=>SearchtheRoomPage(1)}>Search</button>
       </div>
         <RoomItem searchedData={searchedData} Loading={Loading} isAdmin={false}/>
         <div className="next_prev_btn">
