@@ -223,7 +223,7 @@ text-transform: capitalize;
 
 
 
-/* change the password component style */
+
 .changepassword{
   margin-top: 100px;
 }
@@ -279,13 +279,8 @@ select{
   background: green;
 }
 
-/* .list_home_page{
-  display: block;
-  margin: auto;
-  text-align: center;
-} */
+
 .list_name{
-  /* text-align: center; */
   display: block;
   margin: auto;
 }
@@ -309,12 +304,12 @@ input{
 
 
 
-/* Navbar style */
+
   .nav_bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000;
+    background-color: #11171c;
     padding: 1rem;
     transition: height 0.3s ease-out;
     overflow: hidden;
@@ -363,7 +358,7 @@ input{
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: #000000;
+    background-color: #11171c;
     flex-direction: column;
     width: 100%;
     max-height: 0;
@@ -385,7 +380,7 @@ input{
   }
 
   .main-content.pushed {
-    padding-top: 300px; /* Match this to the max-height in .navbar-links.open */
+    padding-top: 300px; 
     transition: 0.3s ease-out;
   }
 }
@@ -400,7 +395,6 @@ input{
 }
 
 .register_login{
-  /* text-align: center; */
   display: block;
   margin: auto;
   background-color: #000000;

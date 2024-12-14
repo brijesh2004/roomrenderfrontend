@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -14,8 +14,8 @@ const Navbar = ({login , setLogin}) => {
             <div className='navbar-logo'>RentKart</div>
             <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
                     <Link to='/'>Home</Link>
-                    <Link to='City'>Cities</Link>
-                    {login&&<Link to="/Postroom">Post</Link>}
+                    <Link to='/City'>Cities</Link>
+                    {login&&<Link to="/uploadroom">Upload</Link>}
                     {!login&&<Link to='/Login'><button className="get_started">Get Started</button></Link>}
                     {login&& <Link to='/profile'>Profile</Link>}
                     {login&& <Link to='/logout'><button className="get_logout">Logout</button></Link>}
