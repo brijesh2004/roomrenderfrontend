@@ -23,7 +23,7 @@ const Register = ({login , setLogin}) => {
       alert("password must be same");
     }
       setRegister("Register...");
-    const res = await fetch(`${process.env.REACT_APP_PATH}/register`,{
+    const res = await fetch(`${process.env.REACT_APP_PATH}/users/register`,{
       method:'POST',
       credentials:"include",
       headers:{

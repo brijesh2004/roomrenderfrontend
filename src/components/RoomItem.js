@@ -24,7 +24,7 @@ const RoomItem = ({searchedData ,Loading , isAdmin}) => {
     const deleteRoom = async (e , id)=>{
         e.stopPropagation();
          try{
-            const res = await fetch(`${process.env.REACT_APP_PATH}/delete/myModel/${id}`, {
+            const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/delete/myModel/${id}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {

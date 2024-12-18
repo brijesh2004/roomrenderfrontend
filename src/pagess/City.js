@@ -8,7 +8,7 @@ const City = () => {
   const callTheCity = async () => {
     try {
         setLoading(true);
-        const res = await fetch(`${process.env.REACT_APP_PATH}/getcity`, {
+        const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/getcity`, {
         method: 'GET',
         headers: {
           'Origin': `${process.env.REACT_APP_PATH}`,

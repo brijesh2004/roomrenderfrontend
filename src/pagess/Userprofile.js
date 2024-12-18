@@ -10,7 +10,7 @@ const Userprofile = () => {
     const fetchUser = useCallback(async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.REACT_APP_PATH}/user/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_PATH}/users/user/${id}`, {
                 method: 'GET',
                 credentials: "include",
                 headers: {

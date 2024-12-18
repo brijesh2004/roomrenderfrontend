@@ -25,7 +25,7 @@ const RoomDetails = () => {
 
     const fetchData = async () => {
         try {
-            const res = await fetch(`${process.env.REACT_APP_PATH}/room?id=${id}`, {
+            const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/room?id=${id}`, {
                 method: "GET",
                 credentials: "include",
                 headers: {

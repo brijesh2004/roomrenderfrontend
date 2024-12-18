@@ -13,7 +13,7 @@ const Profile = ({ login }) => {
   const callprofilePage = async () => {
     try {
       setLoading(true)
-      const res = await fetch(`${process.env.REACT_APP_PATH}/profile`, {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/users/profile`, {
         method: 'GET',
         credentials: "include",
         headers: {

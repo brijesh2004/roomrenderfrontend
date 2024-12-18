@@ -33,7 +33,7 @@ const PostRoomEnchanced = ({login}) => {
     }
     try {
       setMessage("Uploading the Images...");
-      const response = await fetch(`${process.env.REACT_APP_PATH}/uploadImages?id=${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_PATH}/rooms/uploadImages?id=${id}`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -68,7 +68,7 @@ const PostRoomEnchanced = ({login}) => {
     }
     try {
       setMessage("Uploading the room details ...");
-      const res = await fetch(`${process.env.REACT_APP_PATH}/roomupload`, {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/roomupload`, {
         method: 'POST',
         credentials: "include",
         headers: {

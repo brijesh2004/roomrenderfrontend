@@ -15,7 +15,7 @@ const Home = () => {
     try {
       setPageNumber(page);
       setLoading(true);
-      const res = await fetch(`${process.env.REACT_APP_PATH}/api?page=${page}&city=${city}&place=${area}`, {
+      const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/api?page=${page}&city=${city}&place=${area}`, {
         method: "GET",
         credentials: "include",
         headers: {

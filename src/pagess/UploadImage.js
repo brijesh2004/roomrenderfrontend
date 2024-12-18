@@ -24,11 +24,11 @@ const UploadImages = () => {
 
         try {
             setUploadStatus("Uploading...");
-            const response = await fetch("http://localhost:7000/uploadImages", {
+            const response = await fetch(`${process.env.REACT_APP_PATH}/rooms/uploadImages`, {
                 method: "POST",
                 credentials: "include", 
                 headers: {
-                    // No need to set "Content-Type" when sending FormData; fetch sets it automatically.
+                    
                 },
                 body: formData, 
             });

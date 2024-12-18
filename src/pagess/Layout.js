@@ -17,7 +17,7 @@ const Layout = () => {
   const [login, setLogin] = useState(false);
   const isLogin = async () => {
     try {
-      const data = await fetch(`${process.env.REACT_APP_PATH}/about`, {
+      const data = await fetch(`${process.env.REACT_APP_PATH}/users/about`, {
         method: 'GET',
         credentials: 'include',
         headers: {

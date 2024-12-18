@@ -7,7 +7,7 @@ const SimilarRooms = ({city}) => {
     const fetchSimilarRoom = async () => {
         try{
             setLoading(true);
-            const res = await fetch(`${process.env.REACT_APP_PATH}/similarrooms?city=${city}`, {
+            const res = await fetch(`${process.env.REACT_APP_PATH}/rooms/similarrooms?city=${city}`, {
                 method: "GET",
                 credentials: "include",
                 headers: {

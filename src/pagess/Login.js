@@ -14,7 +14,7 @@ const Login = ({login , setLogin}) => {
   const loginUser = async (e) => {
     e.preventDefault();
     setLoginBtn("Login...")
-    const res = await fetch(`${process.env.REACT_APP_PATH}/signin` , {
+    const res = await fetch(`${process.env.REACT_APP_PATH}/users/signin` , {
       method:'POST',
       credentials:'include',
       headers:{

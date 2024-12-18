@@ -6,7 +6,7 @@ const Logout = ({setLogin}) => {
   const navigate = useNavigate();
   const logout = async()=>{
     try{
-      const res = await fetch(`${process.env.REACT_APP_PATH}/logout`,{
+      const res = await fetch(`${process.env.REACT_APP_PATH}/users/logout`,{
         method:'GET',
         credentials:"include",
         headers:{
