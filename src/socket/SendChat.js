@@ -95,7 +95,7 @@ const SendChat = () => {
   useEffect(()=>{
     const userId = localStorage.getItem('user');
     userID = userId;
-    socket = io('http://localhost:7000')
+    socket = io(`${process.env.REACT_APP_PATH}`);
     socket.emit("setup" , userId);
     socket.on("connected" ,() => setSocketConnected(true));
   })
