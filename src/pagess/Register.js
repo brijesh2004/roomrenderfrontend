@@ -41,6 +41,8 @@ const Register = ({login , setLogin}) => {
       window.alert("Invalid Registration");
     }
     else{
+      localStorage.setItem('user' , data.user._id);
+      console.log(data);
       window.alert(" Registration Successully");
       setLogin(true);
       navigate("/");

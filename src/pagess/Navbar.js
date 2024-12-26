@@ -18,6 +18,8 @@ const Navbar = ({login , setLogin}) => {
                     {login&&<Link to="/uploadroom">Upload</Link>}
                     {!login&&<Link to='/Login'><button className="get_started">Get Started</button></Link>}
                     {login&& <Link to='/profile'>Profile</Link>}
+                    {login&& <Link to='/chat'>Chat</Link>}
+
                     {login&& <Link to='/logout'><button className="get_logout">Logout</button></Link>}
             </div>
          <div className="navbar-toggle" onClick={toggleMenu}>

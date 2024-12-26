@@ -13,6 +13,7 @@ import RegisterLogin from './RegisterLogin';
 import { useEffect, useState } from 'react';
 import UploadRoom from './UploadRoom';
 import RoomDetails from '../components/RoomDetails';
+import SendChat from '../socket/SendChat';
 const Layout = () => {
   const [login, setLogin] = useState(false);
   const isLogin = async () => {
@@ -51,6 +52,8 @@ const Layout = () => {
           <Route exact path='/room/:id' element={<RoomDetails/>}></Route>
           <Route exact path='/ChangePassword' element={<ChangePassword />}></Route>
           <Route exact path='/uploadroom' element={<UploadRoom login={login}/>}></Route>
+          <Route exact path='/chat' element={<SendChat/>}></Route>
+          <Route exact path='/chat/:id' element={<SendChat/>}></Route>
           <Route exact path='*' element={<Errorpage />}></Route>
         </Routes>
       </Router>

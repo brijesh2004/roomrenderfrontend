@@ -14,14 +14,14 @@ const RoomDetails = () => {
     const formatDate = (timestamp) => {
         const time = Number(timestamp);
         if (isNaN(time)) {
-          return 'Invalid Date';
+            return 'Invalid Date';
         }
         const date = new Date(time);
         if (isNaN(date.getTime())) {
-          return 'Invalid Date';
+            return 'Invalid Date';
         }
         return date.toLocaleString();
-      };
+    };
 
     const fetchData = async () => {
         try {
@@ -42,6 +42,32 @@ const RoomDetails = () => {
 
     }
 
+    const startChat = async (receiverId) => {
+        try {
+            const res = await fetch(`${process.env.REACT_APP_PATH}/users/about`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Origin': `${process.env.REACT_APP_PATH}`,
+                    "Content-Type": "application/json",
+                },
+            })
+
+            const data = await res.json();
+            if(!data){
+                alert("Error");
+                return;
+            }
+            else{
+                const userId = data.userId;
+                console.log("Data" ,data);
+                navigate(`/chat/${receiverId}`)
+            }   
+        }
+        catch (error) {
+            alert("Error");
+        }
+    }
     useEffect(() => {
         fetchData();
     }, [id]);
@@ -61,27 +87,28 @@ const RoomDetails = () => {
                         </Carousel>
                     </div>
                     <div className='after_carousel'>
-                     <div>Name : {room.roomrenterName}</div>
-                     <div>Country : {room.country}</div>
-                     <div>State : {room.state}</div>
-                     <div>City : {room.city}</div>
-                     <div>Mobile : {room.mobile}</div>
-                     <div>Price : {room.price} ₹</div>
-                     <div>{room.roomdetails}</div>
-                     <div>{formatDate(room.CreatedAt)}</div>
-                     <br />
-                     <button className="visit_profile_btn" onClick={() => navigate(`/user/${room.userId}`)}>
-                      Visit Profile
-                    </button>
+                        <div>Name : {room.roomrenterName}</div>
+                        <div>Country : {room.country}</div>
+                        <div>State : {room.state}</div>
+                        <div>City : {room.city}</div>
+                        <div>Mobile : {room.mobile}</div>
+                        <div>Price : {room.price} ₹</div>
+                        <div>{room.roomdetails}</div>
+                        <div>{formatDate(room.CreatedAt)}</div>
+                        <br />
+                        <button className="visit_profile_btn" onClick={() => navigate(`/user/${room.userId}`)}>
+                            Visit Profile
+                        </button>
+                        <button onClick={()=>startChat(room.userId)}>Start Chat</button>
                     </div>
-                </div>:
+                </div> :
                 <Loading />}
-    {room!==undefined?
-     <SimilarRooms city={room.city}/>:null
-    }
-            
+            {room !== undefined ?
+                <SimilarRooms city={room.city} /> : null
+            }
 
-                
+
+
         </>
     )
 }

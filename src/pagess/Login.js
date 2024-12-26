@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React from 'react'
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +31,8 @@ const Login = ({login , setLogin}) => {
       window.alert("Invalid Login Details");
     }
     else{
+      localStorage.setItem('user' , data.user._id);
+      console.log(data);
       window.alert(" Login Successfully");
       setLogin(true);
       navigate("/");
